@@ -1,0 +1,23 @@
+{
+  "name": "deployment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "cdk deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-cdk/aws-cloudfront": "^1.204.0",
+    "@aws-cdk/aws-ec2": "^1.204.0",
+    "@aws-cdk/aws-iam": "^1.204.0",
+    "@aws-cdk/aws-s3": "^1.204.0",
+    "@aws-cdk/aws-s3-deployment": "^1.204.0",
+    "@aws-cdk/core": "^1.204.0",
+    "aws-cdk": "^2.106.1",
+    "aws-cdk-lib": "^2.106.1"
+  }
+}
