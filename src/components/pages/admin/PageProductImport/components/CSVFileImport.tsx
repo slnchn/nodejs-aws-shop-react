@@ -33,10 +33,6 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
     }
 
     const authorization_token = localStorage.getItem("authorization_token");
-    if (!authorization_token) {
-      console.log("No authorization_token");
-      return;
-    }
 
     const response = await axios({
       method: "GET",
@@ -50,9 +46,9 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
     });
 
     console.log("File to upload: ", file.name);
-    console.log("Uploading to: ", response.data);
+    console.log("Uploading to: ", response?.data, response?.status);
 
-    const result = await fetch(response.data, {
+    const result = await fetch(response?.data, {
       method: "PUT",
       body: file,
     });
