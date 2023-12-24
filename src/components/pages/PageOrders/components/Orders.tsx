@@ -14,9 +14,11 @@ import {
 } from "~/queries/orders";
 
 export default function Orders() {
-  const { data } = useOrders();
+  const { data = [] } = useOrders();
   const invalidateOrders = useInvalidateOrders();
   const { mutate: deleteOrder } = useDeleteOrder();
+
+  console.log(data);
 
   return (
     <TableContainer component={Paper}>
@@ -34,10 +36,15 @@ export default function Orders() {
           {data?.map((order) => (
             <TableRow key={order.id}>
               <TableCell component="th" scope="row">
-                {order.address?.firstName} {order.address?.lastName}
+                {/* @ts-ignore */}
+                {order.delivery.address?.firstName} {/* @ts-ignore */}
+                {order.delivery.address?.lastName} ({order.user.name})
               </TableCell>
               <TableCell align="right">{order.items.length}</TableCell>
-              <TableCell align="right">{order.address?.address}</TableCell>
+              <TableCell align="right">
+                {/* @ts-ignore */}
+                {order.delivery?.address.address}
+              </TableCell>
               <TableCell align="right">
                 {order.statusHistory[order.statusHistory.length - 1].status}
               </TableCell>

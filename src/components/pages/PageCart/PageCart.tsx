@@ -51,6 +51,7 @@ export default function PageCart() {
   );
   const [address, setAddress] = useState<Address>(initialAddressValues);
 
+  console.log("data", data);
   const isCartEmpty = data.length === 0;
 
   const handleNext = () => {
