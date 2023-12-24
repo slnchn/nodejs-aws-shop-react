@@ -13,7 +13,7 @@ export function useCart() {
     });
 
     // @ts-ignore
-    return res.data.items;
+    return res?.data?.data?.cart?.items;
   });
 }
 
@@ -32,7 +32,7 @@ export function useInvalidateCart() {
 
 export function useUpsertCart() {
   return useMutation((values: CartItem) => {
-    const data = axios.put<CartItem[]>(
+    const res = axios.put<CartItem[]>(
       `${API_PATHS.cart}/profile/cart`,
       values,
       {
@@ -42,6 +42,6 @@ export function useUpsertCart() {
       }
     );
 
-    return data.items;
+    return res?.data?.data?.cart?.items;
   });
 }

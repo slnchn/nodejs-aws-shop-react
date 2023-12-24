@@ -18,7 +18,12 @@ export default function AddProductToCart({ product }: AddProductToCartProps) {
 
   const addProduct = () => {
     upsertCart(
-      { product, count: cartItem ? cartItem.count + 1 : 1 },
+      {
+        product,
+        cartId: cartItem?.cart_id,
+        productId: product.id,
+        count: cartItem ? cartItem.count + 1 : 1,
+      },
       { onSuccess: invalidateCart }
     );
   };
@@ -26,7 +31,12 @@ export default function AddProductToCart({ product }: AddProductToCartProps) {
   const removeProduct = () => {
     if (cartItem) {
       upsertCart(
-        { ...cartItem, count: cartItem.count - 1 },
+        {
+          ...cartItem,
+          cartId: cartItem?.cart_id,
+          productId: product.id,
+          count: cartItem.count - 1,
+        },
         { onSuccess: invalidateCart }
       );
     }
