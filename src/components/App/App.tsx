@@ -1,3 +1,4 @@
+import { useQueryClient } from "react-query";
 import { Routes, Route } from "react-router-dom";
 import MainLayout from "~/components/MainLayout/MainLayout";
 import PageProductForm from "~/components/pages/PageProductForm/PageProductForm";
@@ -7,8 +8,53 @@ import PageProductImport from "~/components/pages/admin/PageProductImport/PagePr
 import PageCart from "~/components/pages/PageCart/PageCart";
 import PageProducts from "~/components/pages/PageProducts/PageProducts";
 import { Typography } from "@mui/material";
+import { useEffect } from "react";
+import axios from "axios";
 
 function App() {
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    (async () => {
+      if (localStorage.getItem("get-products-token")) {
+        return;
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const codeValue = urlParams.get("code");
+      if (!codeValue) {
+        return;
+      }
+
+      try {
+        const token = await axios.post(
+          "https://slnchnrssdevpool.auth.eu-west-1.amazoncognito.com/oauth2/token",
+          {},
+          {
+            params: {
+              grant_type: "authorization_code",
+              client_id: "1hrrj9p0s56el2mcd7ca3us3i1",
+              code: codeValue,
+              redirect_uri: "https://d1vdv7tmd1pu8.cloudfront.net/",
+            },
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+
+        if (token?.data?.id_token) {
+          localStorage.setItem("get-products-token", token.data.id_token);
+        }
+
+        // invalidate the
+        queryClient.invalidateQueries("available-products");
+      } catch (error) {
+        console.log("error", error);
+      }
+    })();
+  }, [queryClient]);
+
   return (
     <MainLayout>
       <Routes>
