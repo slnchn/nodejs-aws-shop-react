@@ -42,6 +42,7 @@ export function useUpsertCart() {
       }
     );
 
+    // @ts-ignore
     return res?.data?.data?.cart?.items;
   });
 }

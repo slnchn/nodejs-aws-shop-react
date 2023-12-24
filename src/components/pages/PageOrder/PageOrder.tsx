@@ -1,5 +1,5 @@
 import React from "react";
-import { Order, OrderItem } from "~/models/Order";
+import { Order, OrderItem, statusHistory } from "~/models/Order";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import PaperLayout from "~/components/PaperLayout/PaperLayout";
@@ -36,7 +36,7 @@ export default function PageOrder() {
       queryKey: ["order", { id }],
       queryFn: async () => {
         const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
-        console.log(res.data.data);
+        // @ts-ignore
         return res.data.data;
       },
     },
@@ -154,17 +154,21 @@ export default function PageOrder() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {statusHistory.map((statusHistoryItem, key) => (
-              <TableRow key={`${order.id}-${key}`}>
-                <TableCell component="th" scope="row">
-                  {statusHistoryItem.status.toUpperCase()}
-                </TableCell>
-                <TableCell align="right">
-                  {new Date(statusHistoryItem.timestamp).toString()}
-                </TableCell>
-                <TableCell align="right">{statusHistoryItem.comment}</TableCell>
-              </TableRow>
-            ))}
+            {statusHistory.map(
+              (statusHistoryItem: statusHistory, key: number) => (
+                <TableRow key={`${order.id}-${key}`}>
+                  <TableCell component="th" scope="row">
+                    {statusHistoryItem.status.toUpperCase()}
+                  </TableCell>
+                  <TableCell align="right">
+                    {new Date(statusHistoryItem.timestamp).toString()}
+                  </TableCell>
+                  <TableCell align="right">
+                    {statusHistoryItem.comment}
+                  </TableCell>
+                </TableRow>
+              )
+            )}
           </TableBody>
         </Table>
       </TableContainer>

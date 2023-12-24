@@ -20,6 +20,7 @@ export default function AddProductToCart({ product }: AddProductToCartProps) {
     upsertCart(
       {
         product,
+        // @ts-ignore
         cartId: cartItem?.cart_id,
         productId: product.id,
         count: cartItem ? cartItem.count + 1 : 1,
@@ -33,6 +34,7 @@ export default function AddProductToCart({ product }: AddProductToCartProps) {
       upsertCart(
         {
           ...cartItem,
+          // @ts-ignore
           cartId: cartItem?.cart_id,
           productId: product.id,
           count: cartItem.count - 1,
