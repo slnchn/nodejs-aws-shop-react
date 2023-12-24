@@ -37,10 +37,7 @@ export default function PageOrder() {
       queryFn: async () => {
         const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
         console.log(res.data.data);
-        return {
-          ...res.data.data,
-          statusHistory: [{ status: res.data.data.status }],
-        };
+        return res.data.data;
       },
     },
     // {
