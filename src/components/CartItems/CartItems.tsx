@@ -17,6 +17,8 @@ export default function CartItems({ items, isEditable }: CartItemsProps) {
     0
   );
 
+  console.log("items", items);
+
   return (
     <>
       <List disablePadding>

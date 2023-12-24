@@ -36,39 +36,41 @@ export default function PageOrder() {
       queryKey: ["order", { id }],
       queryFn: async () => {
         const res = await axios.get<Order>(`${API_PATHS.order}/order/${id}`);
-        return res.data;
+        console.log(res.data.data);
+        return {
+          ...res.data.data,
+          statusHistory: [{ status: res.data.data.status }],
+        };
       },
     },
-    {
-      queryKey: "products",
-      queryFn: async () => {
-        const res = await axios.get<AvailableProduct[]>(
-          `${API_PATHS.bff}/product/available`
-        );
-        return res.data;
-      },
-    },
+    // {
+    //   queryKey: "products",
+    //   queryFn: async () => {
+    //     const res = await axios.get<AvailableProduct[]>(
+    //       `${API_PATHS.bff}/product/available`
+    //     );
+    //     return res.data;
+    //   },
+    // },
   ]);
+
   const [
     { data: order, isLoading: isOrderLoading },
-    { data: products, isLoading: isProductsLoading },
+    // { data: products, isLoading: isProductsLoading },
   ] = results;
+
   const { mutateAsync: updateOrderStatus } = useUpdateOrderStatus();
   const invalidateOrder = useInvalidateOrder();
   const cartItems: CartItem[] = React.useMemo(() => {
-    if (order && products) {
+    if (order) {
       return order.items.map((item: OrderItem) => {
-        const product = products.find((p) => p.id === item.productId);
-        if (!product) {
-          throw new Error("Product not found");
-        }
-        return { product, count: item.count };
+        return item;
       });
     }
     return [];
-  }, [order, products]);
+  }, [order]);
 
-  if (isOrderLoading || isProductsLoading) return <p>loading...</p>;
+  if (isOrderLoading) return <p>loading...</p>;
 
   const statusHistory = order?.statusHistory || [];
 
@@ -79,7 +81,7 @@ export default function PageOrder() {
       <Typography component="h1" variant="h4" align="center">
         Manage order
       </Typography>
-      <ReviewOrder address={order.address} items={cartItems} />
+      <ReviewOrder address={order.delivery.address} items={cartItems} />
       <Typography variant="h6">Status:</Typography>
       <Typography variant="h6" color="primary">
         {lastStatusItem?.status.toUpperCase()}
