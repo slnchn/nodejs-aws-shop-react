@@ -154,8 +154,8 @@ export default function PageOrder() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {statusHistory.map((statusHistoryItem) => (
-              <TableRow key={order.id}>
+            {statusHistory.map((statusHistoryItem, key) => (
+              <TableRow key={`${order.id}-${key}`}>
                 <TableCell component="th" scope="row">
                   {statusHistoryItem.status.toUpperCase()}
                 </TableCell>
