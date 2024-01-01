@@ -1,10 +1,10 @@
 const API_PATHS = {
   product: "https://3da8zh16e9.execute-api.eu-west-1.amazonaws.com/prod",
-  order: "http://slnchn-cart-api-prod-3.eu-west-1.elasticbeanstalk.com/api",
+  order: "https://nvkgb2j9q0.execute-api.eu-west-1.amazonaws.com/api/order",
   // order: "http://localhost:4000/api",
   import: "https://pazp3i79pa.execute-api.eu-west-1.amazonaws.com/prod",
   bff: "https://.execute-api.eu-west-1.amazonaws.com/dev",
-  cart: "http://slnchn-cart-api-prod-3.eu-west-1.elasticbeanstalk.com/api",
+  cart: "https://nvkgb2j9q0.execute-api.eu-west-1.amazonaws.com/api/order",
   // cart: "http://localhost:4000/api",
 };
 
