@@ -16,7 +16,7 @@ export function useCart() {
     );
 
     // @ts-ignore
-    return res?.data?.data?.cart?.items;
+    return res?.data?.data?.cart?.items.filter((item) => !!item.product);
   });
 }
 
