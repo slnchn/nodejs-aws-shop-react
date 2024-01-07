@@ -1,11 +1,9 @@
 const API_PATHS = {
-  product: "https://3da8zh16e9.execute-api.eu-west-1.amazonaws.com/prod",
-  order: "https://nvkgb2j9q0.execute-api.eu-west-1.amazonaws.com/api",
-  // order: "http://localhost:4000/api",
+  product: "https://hqq9gzintd.execute-api.eu-west-1.amazonaws.com/",
+  order: "https://hqq9gzintd.execute-api.eu-west-1.amazonaws.com/",
   import: "https://pazp3i79pa.execute-api.eu-west-1.amazonaws.com/prod",
-  bff: "https://.execute-api.eu-west-1.amazonaws.com/dev",
-  cart: "https://nvkgb2j9q0.execute-api.eu-west-1.amazonaws.com/api",
-  // cart: "http://localhost:4000/api",
+  bff: "https://hqq9gzintd.execute-api.eu-west-1.amazonaws.com/",
+  cart: "https://hqq9gzintd.execute-api.eu-west-1.amazonaws.com/",
 };
 
 export default API_PATHS;
