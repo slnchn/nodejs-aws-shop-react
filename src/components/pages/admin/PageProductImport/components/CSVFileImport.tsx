@@ -56,6 +56,7 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
     console.log("Result: ", result);
     setFile(null);
   };
+
   return (
     <Box>
       <Typography variant="h6" gutterBottom>
