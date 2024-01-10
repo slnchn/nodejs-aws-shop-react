@@ -6,14 +6,17 @@ import { CartItem } from "~/models/CartItem";
 
 export function useCart() {
   return useQuery<CartItem[], AxiosError>("cart", async () => {
-    const res = await axios.get<CartItem[]>(`${API_PATHS.cart}/profile/cart`, {
-      headers: {
-        Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-      },
-    });
+    const res = await axios.get<CartItem[]>(
+      `${API_PATHS.bff}/api/profile/cart`,
+      {
+        headers: {
+          Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
+        },
+      }
+    );
 
     // @ts-ignore
-    return res?.data?.data?.cart?.items;
+    return res?.data?.data?.cart?.items.filter((item) => !!item.product);
   });
 }
 
@@ -33,7 +36,7 @@ export function useInvalidateCart() {
 export function useUpsertCart() {
   return useMutation((values: CartItem) => {
     const res = axios.put<CartItem[]>(
-      `${API_PATHS.cart}/profile/cart`,
+      `${API_PATHS.bff}/api/profile/cart`,
       values,
       {
         headers: {
